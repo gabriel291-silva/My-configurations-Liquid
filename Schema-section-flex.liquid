@@ -1,0 +1,196 @@
+{% schema %}
+{
+  "name": "Flex section template",
+  "settings": [
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content Width",
+      "options": [
+        {
+          "label": "Full width",
+          "value": "full"
+        },
+        {
+          "label": "Box width",
+          "value": "box"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Min Height",
+      "max": 10000,
+      "min": 100,
+      "step": 1,
+      "default": 100
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "direção",
+      "options": [
+        {
+          "label": "Esquerda - Direita",
+          "value": "row"
+        },
+        {
+          "label": "Direita - Esquerda",
+          "value": "row-reverse"
+        },
+        {
+          "label": "Cima - Baixo",
+          "value": "column"
+        },
+        {
+          "label": "Baixo - Cima",
+          "value": "column-reverse"
+        }
+      ]
+    },
+    {
+        "type": "select",
+        "id": "justify_content",
+        "label": "Direção do contêudo",
+        "options": [
+          {
+            "label": "centralizado",
+            "value": "center"
+          },
+          {
+            "label": "Esquerda",
+            "value": "flex-start"
+          },
+          {
+            "label": "Direita",
+            "value": "flex-end"
+          },
+          {
+            "label": "Space around",
+            "value": "space-around"
+          },
+          {
+            "label": "Space between",
+            "value": "space-between"
+          },
+          {
+            "label": "Space evenly",
+            "value": "space-evenly"
+          },
+        ]
+    },
+    {
+        "type": "select",
+        "id": "align_itens",
+        "label": "Alinhamento do contêudo",
+        "options": [
+          {
+            "label": "centralizado",
+            "value": "center"
+          },
+          {
+            "label": "Inicio",
+            "value": "flex-start"
+          },
+          {
+            "label": "Final",
+            "value": "end"
+          },
+        ]
+    },
+    {
+        "type": "range",
+        "id": "gap",
+        "label": "Gap",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "default": 8
+    },
+    {
+        "type": "color",
+        "id": "background",
+        "label": "Cor do fundo"
+    },
+    {
+        "type": "range",
+        "id": "padding_top",
+        "label": "Padding top",
+        "max": 100,
+        "min": 1,
+        "step": 1,
+        "default": 0
+    },
+    {
+        "type": "range",
+        "id": "padding_bottom",
+        "label": "Padding Bottom",
+        "max": 100,
+        "min": 1,
+        "step": 1,
+        "default": 0
+    },
+    {
+        "type": "range",
+        "id": "padding_left",
+        "label": "Padding Left",
+        "max": 100,
+        "min": 1,
+        "step": 1,
+        "default": 0
+    },
+    {
+        "type": "range",
+        "id": "padding_right",
+        "label": "Padding right",
+        "max": 100,
+        "min": 1,
+        "step": 1,
+        "default": 0
+    },
+    {
+        "type": "range",
+        "id": "margin_top",
+        "label": "Margin top",
+        "max": 100,
+        "min": 1,
+        "step": 1,
+        "default": 0
+    },
+    {
+        "type": "range",
+        "id": "margin_bottom",
+        "label": "Margin Bottom",
+        "max": 100,
+        "min": 1,
+        "step": 1,
+        "default": 0
+    },
+    {
+        "type": "range",
+        "id": "margin_left",
+        "label": "Margin Left",
+        "max": 100,
+        "min": 1,
+        "step": 1,
+        "default": 0
+    },
+    {
+        "type": "range",
+        "id": "margin_right",
+        "label": "Margin right",
+        "max": 100,
+        "min": 1,
+        "step": 1,
+        "default": 0
+    },
+    {
+    "type": "text",
+    "id": "class_css",
+    "label": "Class css",
+    "info": "a classe será inserida no componenente "
+    },
+    ]
+}
+{% endschema %}
