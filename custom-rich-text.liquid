@@ -1,0 +1,874 @@
+{{ 'custom-rich-text.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="rich-text-custom-container"
+  style="
+    --align-items: {{ section.settings.desktop_content_position }};
+    --text-align: {{ section.settings.desktop_content_position }};
+    --padding-bottom: {{ section.settings.padding_bottom }}px;
+    --padding-top: {{ section.settings.padding_top }}px;
+    --padding-lateral:{{ section.settings.padding_lateral }}px;
+    --background:{{ section.settings.background_componente }};
+  "
+>
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'heading' -%}
+        {% if block.settings.heading %}
+          <h2
+            class="title"
+            style="
+              --font-size: {{ block.settings.font_size }}px;
+              --font-size-mobile: {{ block.settings.font_size_mobile }}px;
+              --color: {{ block.settings.color_font }};
+              --margin-top: {{ block.settings.font_margin_top }}px;
+              --margin-bottom: {{ block.settings.font_margin_bottom }}px;
+              --margin-top-mobile: {{ block.settings.font_margin_top_mobile }}px;
+              --margin-bottom-mobile: {{ block.settings.font_margin_bottom_mobile }}px;
+            "
+          >
+            {{ block.settings.heading }}
+          </h2>
+        {% endif %}
+      {%- when 'text' -%}
+        {% if block.settings.text %}
+          <div
+            class="text"
+            style="
+              --font-size: {{ block.settings.font_size }}px;
+              --font-size-mobile: {{ block.settings.font_size_mobile }}px;
+              --color: {{ block.settings.color_font }};
+              --margin-top: {{ block.settings.font_margin_top }}px;
+              --margin-bottom: {{ block.settings.font_margin_bottom }}px;
+              --margin-top-mobile: {{ block.settings.font_margin_top_mobile }}px;
+              --margin-bottom-mobile: {{ block.settings.font_margin_bottom_mobile }}px;
+            "
+          >
+            {{ block.settings.text }}
+          </div>
+        {% endif %}
+      {%- when 'button' -%}
+        <div>
+          {%- if block.settings.button_label != blank -%}
+            <a
+              class="button"
+              style="
+                --font-size: {{ block.settings.font_size }}px;
+                --font-size-mobile: {{ block.settings.font_size_mobile }}px;
+                --color: {{ block.settings.color_font }};
+                --margin-top: {{ block.settings.font_margin_top }}px;
+                --margin-bottom: {{ block.settings.font_margin_bottom }}px;
+                --margin-top-mobile: {{ block.settings.font_margin_top_mobile }}px;
+                --margin-bottom-mobile: {{ block.settings.font_margin_bottom_mobile }}px;
+                --background:{{ block.settings.color_Background }};
+              "
+            >
+              {{- block.settings.button_label | escape -}}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- when 'slide' -%}
+        <div class="slide">
+          {% if block.settings.image -%}
+            <img class="img_desktop" src="{{ block.settings.image | img_url:"original"  }}" height="" width="">
+          {%- endif %}
+          {% if block.settings.image_mobile -%}
+            <img class="img_mobile" src="{{ block.settings.image_mobile | img_url:"original"  }}" height="" width="">
+          {%- endif %}
+        </div>
+      {%- when 'step' -%}
+        {% if block.settings.text %}
+          <div
+            class="step-content"
+            style="
+              --margin-top: {{ block.settings.font_margin_top }}px;
+              --margin-bottom: {{ block.settings.font_margin_bottom }}px;
+              --margin-top-mobile: {{ block.settings.font_margin_top_mobile }}px;
+              --margin-bottom-mobile: {{ block.settings.font_margin_bottom_mobile }}px;
+            "
+          >
+            <span
+              class="number"
+              style="
+                --font-size: {{ block.settings.font_size }}px;
+                --font-size-mobile: {{ block.settings.font_size_mobile }}px;
+                --color: {{ block.settings.color_font }};
+                --background:{{ block.settings.color_Background }};
+              "
+            >
+              {{- block.settings.number }}
+
+              {% if block.settings.tracado %}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1"
+                  height="17"
+                  viewBox="0 0 1 17"
+                  fill="none"
+                  style="
+                    position: absolute;
+                    /* height: 61px; */
+                    margin-bottom: -54px;
+                    /* height: 160px; */
+                    display: flex;
+                  "
+                >
+                  <line x1="0.5" y1="0.866699" x2="0.499999" y2="16.8667" stroke="#EB6477" stroke-dasharray="2 2"/>
+                </svg>
+              {% endif %}
+            </span>
+            <span
+              class="text"
+              style="
+                --color: {{ block.settings.color_font }};
+                --font-size: {{ block.settings.font_size }}px;
+                --font-size-mobile: {{ block.settings.font_size_mobile }}px;
+              "
+            >
+              {{- block.settings.text -}}
+            </span>
+          </div>
+        {% endif %}
+      {%- when 'acordeon_item' -%}
+        {% if block.settings.titulo %}
+          <div
+            class="acordeon-item"
+            style="
+              --margin-top: {{ block.settings.font_margin_top }}px;
+              --margin-bottom: {{ block.settings.font_margin_bottom }}px;
+              --margin-top-mobile: {{ block.settings.font_margin_top_mobile }}px;
+              --margin-bottom-mobile: {{ block.settings.font_margin_bottom_mobile }}px;
+            "
+          >
+            <span
+              class="acordeon-item-title acordeon-item-open"
+              style="
+                --font-size: {{ block.settings.font_size }}px;
+                --font-size-mobile: {{ block.settings.font_size_mobile }}px;
+                --color: {{ block.settings.color_font }};
+              "
+            >
+              {{- block.settings.titulo }}
+              <span class="acordeon-item-title-icon">+</span>
+            </span>
+            <div class="content close">
+              <div
+                class="acordeon-item-content "
+                style="
+                  --font-size: {{ block.settings.font_size_text }}px;
+                  --font-size-mobile: {{ block.settings.font_size_mobile_text }}px;
+                  --color: {{ block.settings.color_font_text }};
+                "
+              >
+                {{- block.settings.text }}
+              </div>
+              {% if block.settings.button_vissible %}
+                <a
+                  class="acordeon-item-button"
+                  href="{{- block.settings.link }}"
+                  style="
+                    --font-size: {{ block.settings.font_size_button }}px;
+                    --font-size-mobile: {{ block.settings.font_size_mobile_button }}px;
+                    --color: {{ block.settings.color_font_button }};
+                    --background:{{ block.settings.color_botao }}
+                  "
+                >
+                  {{- block.settings.button_text -}}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {%- when 'card_item' -%}
+        <div class="card-item-container">
+          <div  class="card-item-content" style="--background:{{ block.settings.color_card  }};">
+            <span class="card-item-title" style="--color-text:{{ block.settings.color_text  }};">
+              {{ block.settings.titulo -}}
+            </span>
+            <span class="card-item-text" style="--color-text:{{ block.settings.color_text  }};">
+              {{- block.settings.text -}}
+            </span>
+            <div class="card-item-img-text">
+              {% if block.settings.image -%}
+                <img class="img_desktop" src="{{ block.settings.image | img_url:"original"  }}" height="" width="">
+              {%- endif %}
+              {% if block.settings.image_mobile -%}
+                <img
+                  class="img_mobile"
+                  src="{{ block.settings.image_mobile | img_url:"original"  }}"
+                  height=""
+                  width=""
+                >
+              {%- endif %}
+              <span
+                class="card-item-text-img"
+                style="              --color-text:{{ block.settings.color_text  }};"
+              >
+                {{- block.settings.text_img -}}
+              </span>
+            </div>
+          </div>
+        </div>
+    {%- endcase -%}
+  {%- endfor -%}
+</div>
+<script>
+  document.querySelectorAll('.acordeon-item-title').forEach((element) => {
+    element.addEventListener('click', () => {
+      if (element.nextElementSibling.classList.contains('close')) {
+        element.nextElementSibling.classList.remove('close');
+        element.childNodes[2].innerHTML = '-';
+      } else {
+        element.nextElementSibling.classList.add('close');
+        element.childNodes[2].innerHTML = '+';
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom Componente",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_componente",
+      "label": "Cor de fundo"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.desktop_content_position.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.desktop_content_position.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.desktop_content_position.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.desktop_content_position.label",
+      "info": "t:sections.rich-text.settings.desktop_content_position.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_lateral",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Preenchimento lateal",
+      "default": 8
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.rich-text.blocks.heading.name",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "t:sections.rich-text.blocks.heading.settings.heading.default",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho Fonte Desktop",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho Fonte Mobile",
+          "default": 20
+        },
+        {
+          "type": "color",
+          "id": "color_font",
+          "label": "Cor"
+        },
+        {
+          "type": "range",
+          "id": "font_margin_bottom",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de baixo",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_top",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de cima",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_bottom_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de baixo Mobile",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_top_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de cima Mobile",
+          "default": 8
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich-text.blocks.text.name",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "t:sections.rich-text.blocks.text.settings.text.default",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho Fonte desktop",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho Fonte Mobile",
+          "default": 20
+        },
+        {
+          "type": "color",
+          "id": "color_font",
+          "label": "Cor"
+        },
+        {
+          "type": "range",
+          "id": "font_margin_bottom",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de baixo",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_top",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de cima",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_bottom_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de baixo Mobile",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_top_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de cima Mobile",
+          "default": 8
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich-text.blocks.buttons.name",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "t:sections.rich-text.blocks.buttons.settings.button_label_1.default",
+          "label": "t:sections.rich-text.blocks.buttons.settings.button_label_1.label",
+          "info": "t:sections.rich-text.blocks.buttons.settings.button_label_1.info"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.rich-text.blocks.buttons.settings.button_link_1.label"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho Fonte Desktop",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho Fonte Mobile",
+          "default": 20
+        },
+        {
+          "type": "color",
+          "id": "color_font",
+          "label": "Cor texto"
+        },
+        {
+          "type": "color",
+          "id": "color_Background",
+          "label": "Cor botão"
+        },
+        {
+          "type": "range",
+          "id": "font_margin_bottom",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de baixo",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_top",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de cima",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_bottom_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de baixo Mobile",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_top_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de cima Mobile",
+          "default": 8
+        }
+      ]
+    },
+    {
+      "name": "Slide",
+      "type": "slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image Desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Image Mobile"
+        },
+        {
+          "type": "text",
+          "id": "url",
+          "label": "Ilink"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "alt"
+        }
+      ]
+    },
+    {
+      "name": "Step",
+      "type": "step",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texto"
+        },
+        {
+          "type": "text",
+          "id": "number",
+          "label": "texto icon"
+        },
+        {
+          "type": "checkbox",
+          "id": "tracado",
+          "label": "mostrar tracado?",
+          "default": true
+        },
+        {
+          "type": "color",
+          "id": "color_font",
+          "label": "Cor texto"
+        },
+        {
+          "type": "color",
+          "id": "color_Background",
+          "label": "Cor componente"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho Fonte Desktop",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho Fonte Mobile",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "font_margin_bottom",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de baixo",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_top",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de cima",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_bottom_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de baixo Mobile",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_top_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de cima Mobile",
+          "default": 8
+        }
+      ]
+    },
+    {
+      "name": "Acordeon Item",
+      "type": "acordeon_item",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "titulo",
+          "label": "Titulo"
+        },
+        {
+          "type": "color",
+          "id": "color_font",
+          "label": "cor do titulo"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho Fonte Desktop",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho Fonte Mobile",
+          "default": 20
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texto"
+        },
+        {
+          "type": "color",
+          "id": "color_font_text",
+          "label": "cor do texto"
+        },
+        {
+          "type": "range",
+          "id": "font_size_text",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho Fonte Desktop",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile_text",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho Fonte Mobile",
+          "default": 20
+        },
+        {
+          "type": "checkbox",
+          "id": "button_vissible",
+          "label": "exibir botão ?",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Texto botão"
+        },
+        {
+          "type": "text",
+          "id": "link",
+          "label": "Link Botão"
+        },
+        {
+          "type": "color",
+          "id": "color_font_button",
+          "label": "cor texto botão"
+        },
+        {
+          "type": "color",
+          "id": "color_botao",
+          "label": "cor botão"
+        },
+        {
+          "type": "range",
+          "id": "font_size_button",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho Fonte Desktop",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile_button",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho Fonte Mobile",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "font_margin_bottom",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de baixo",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_top",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de cima",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_bottom_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de baixo Mobile",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "font_margin_top_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Preenchimento de cima Mobile",
+          "default": 8
+        }
+      ]
+    },
+    {
+      "type": "card_item",
+      "name": "card Item",
+      "settings": [
+        {
+          "type": "color",
+          "id": "color_card",
+          "label": "cor do componente"
+        },
+        {
+          "type": "color",
+          "id": "color_text",
+          "label": "cor do texto"
+        },
+        {
+          "type": "richtext",
+          "id": "titulo",
+          "label": "titulo"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "texto"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "imagem desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "imagem mobile"
+        },
+        {
+          "type": "richtext",
+          "id": "text_img",
+          "label": "texto da imagem"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom element",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

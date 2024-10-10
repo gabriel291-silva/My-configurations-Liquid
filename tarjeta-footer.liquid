@@ -1,0 +1,80 @@
+
+{{ 'tarjeta-footer.css' | asset_url | stylesheet_tag }}
+
+<div class="tarjeta-footer-container" 
+  style="--background-color_page: {{ section.settings.color_scheme.settings.text_second}}" >
+  <div class="tarjeta-footer-content">
+      {% for block in section.blocks %}
+        <div class="tarjeta-item-content"> 
+            <a 
+              href="{{ block.settings.url }}" 
+              class="tarjeta-item"  alt="{{ block.settings.alt }}" 
+              style="--color-reverse: {{ section.settings.color_scheme.settings.text_reverse}}"> 
+              <img class="tarjeta-footer-img" src="{{ block.settings.icon | img_url:"original"  }}" height="100%" width="100%">
+              {{ block.settings.text }}
+            </a>
+            <a class="tarjeta-item-link-mobile" href="{{ block.settings.url }}" style="--color-reverse: {{ section.settings.color_scheme.settings.text_reverse}}">
+                {{ block.settings.text_url }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="11" viewBox="0 0 6 11" fill="none">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M5.99999 5.25183L0.999801 0.251953L0.116088 1.13579L4.2325 5.25195L0.116714 9.36824L1.00055 10.252L5.99999 5.25183Z" fill="white"/>
+                </svg>
+            </a>
+        </div>
+      {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Tarjeta Footer",
+  "tag": "section",
+  "class": "Tarjeta Footer",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label"
+    },
+  ],
+  "max_blocks": 10,
+  "blocks": [
+     {
+       "name": "Slide",
+       "type": "slide",
+       "settings": [
+         {
+           "type": "image_picker",
+           "id": "icon",
+           "label": "Icone"
+         },
+         {
+            "type": "richtext", 
+            "id": "text",
+            "label": "Texto"
+          },
+          {
+            "type": "text", 
+            "id": "url",
+            "label": "url"
+          },
+          {
+            "type": "richtext", 
+            "id": "text_url",
+            "label": "Texto mobile link "
+          },
+       ]
+     }
+  ],
+  "presets": [
+    {
+      "name": "Tarjeta Footer",
+      "settings": {
+      }
+    }
+  ],
+  "enabled_on": {
+    "templates": ["*"],
+    "groups": ["footer"]
+  }
+}
+{% endschema %}

@@ -1,0 +1,101 @@
+<div class="popup-years-swrapper">
+    <div class="popup-years-container"
+         style="
+         --padding-bottom: {{ section.settings.padding_bottom }}px;
+         --padding-top: {{ section.settings.padding_top }}px;
+         --padding-lateral:{{ section.settings.padding_lateral }}px;
+         --background:{{ section.settings.background_componente }};">
+        <div class="popup-years-content">
+          {% if section.settings.image %}
+            <img class="popup-years-logo" src="{{ section.settings.image | img_url:"master"  }}" width="100%" height="100%"/>
+            {% endif %}
+            {% if section.settings.text %}
+            <span class="popup-years-title">{{ section.settings.text }}</span>
+            {% endif %}
+
+              <div class="popup-years-content-button">
+                {% if section.settings.text_button_one %}
+                  <button class="popup-years-button-one">{{ section.settings.text_button_one }}</button>
+                {% endif %}
+                {% if section.settings.text_button_two %}
+                  <button class="popup-years-button-two">{{ section.settings.text_button_two }}</button>
+                {% endif %}
+
+              </div>
+
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "popup years",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_componente",
+      "label": "Cor de fundo"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "ícone popup"  
+    },
+    {
+        "type": "text",
+        "id": "text",
+        "label": "Título popup"  
+      },
+      {
+        "type": "text",
+        "id": "text_button_one",
+        "label": "Texto botão esquerdo"  
+      },
+      {
+        "type": "text",
+        "id": "text_button_two",
+        "label": "Texto botão direito"  
+      },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_lateral",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Preenchimento lateal",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "popup years",
+    }
+  ]
+}
+{% endschema %}

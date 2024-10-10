@@ -1,0 +1,180 @@
+{{ 'newsletter-section.css' | asset_url | stylesheet_tag }}
+
+
+<div class="newsletter-container " 
+  style="
+  --padding-top:{{ section.settings.padding_top}}px; 
+  --padding-bottom:{{ section.settings.padding_bottom}}px;
+  --url-background:url('{{ section.settings.img-background | img_url:'original'}}')">
+  <div class="newsletter-content">
+    <div class="newsletter-text-content">
+      <span 
+        class="newsletter-title" 
+        style="
+        --font-size:{{ section.settings.size_title}}px;
+        --font-size-mobile:{{ section.settings.size_title_mobile}}px;
+        --color-font: {{ section.settings.color_scheme.settings.text_reverse }}">
+        {{ section.settings.heading_title }}
+      </span>
+      <span 
+        class="newsletter-text" 
+        style="
+        --font-size:{{ section.settings.size_text}}px;
+        --font-size-mobile:{{ section.settings.size_text_mobile}}px;
+        --color-font: {{ section.settings.color_scheme.settings.text_reverse }}">
+        {{ section.settings.heading_text }}
+      </span>
+    </div>
+
+
+    <div class="newsletter-form-content">
+      {% form 'customer'%}
+
+        <div class="email">
+          <input  placeholder="Nome" class="input-newsletter"/>
+          <input type="email" name="contact[email]" placeholder="E-mail" class="input-newsletter"/>
+        </div>
+      
+        <div class="submit">
+          <input 
+            type="submit" 
+            value="{{section.settings.text_Button_submit}}"
+            class="newsletter-button" 
+            style="
+            --background-button:{{ section.settings.color_scheme.settings.text_second }};
+            --color-font: {{ section.settings.color_scheme.settings.text_reverse }}" />
+        </div>
+    {% endform %}
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+    <div class="newsletter-checkbox-content">
+      <input class="newsletter-checkbox" type="checkbox" />
+      <label 
+        class="newsletter-checkbox-label"
+        style="--color-font: {{ section.settings.color_scheme.settings.text_reverse }}">
+        {{ section.settings.text_confirmation }}
+    </label>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "t:sections.newsletter.name",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 52
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading_title",
+      "label": "t:sections.newsletter.settings.title.content"
+    },
+    {
+      "type": "range",
+      "id": "size_title",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.newsletter.settings.size_title.content",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "size_title_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.newsletter.settings.size_title_mobile.content",
+      "default": 24
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading_text",
+      "label": "t:sections.newsletter.settings.text.content"
+    },
+    {
+      "type": "range",
+      "id": "size_text",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.newsletter.settings.size_text.content",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "size_text_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.newsletter.settings.size_text_mobile.content",
+      "default": 18
+    },
+    {
+      "type": "text",
+      "id": "text_confirmation",
+      "label": "t:sections.newsletter.settings.text_confirmation_input.content"
+    },
+    {
+      "type": "text",
+      "id": "text_Button_submit",
+      "label": "t:sections.newsletter.settings.text_button_submit.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "img-background",
+      "label": "t:sections.newsletter.settings.background_image.content"
+    },
+
+  ],
+  "presets": [
+    {
+      "name": "t:sections.newsletter.name",
+    }
+  ],
+}
+{% endschema %} 
+

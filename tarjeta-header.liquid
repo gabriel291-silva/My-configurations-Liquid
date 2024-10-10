@@ -1,0 +1,93 @@
+
+{{ 'tarjeta-header.css' | asset_url | stylesheet_tag }}
+
+<div class="tarjeta-header-container " 
+  style="--background-color_page: {{ section.settings.color_scheme.settings.text_second}}" >
+  <div class="tarjeta-header-content tarjeta-header-content{{ section.id }}">
+      {% for block in section.blocks %}
+        <div class="tarjeta-item-content"> 
+            <a 
+              href="{{ block.settings.url }}" 
+              class="tarjeta-item"  alt="{{ block.settings.alt }}" 
+              style="--color-reverse: {{ section.settings.color_scheme.settings.text_reverse}}"> 
+              {{ block.settings.text }}
+              <span>{{ block.settings.text_distaque }}</span>
+            </a>
+        </div>
+      {% endfor %}
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', ()=>{
+    $(`.tarjeta-header-content{{ section.id }}`).slick({
+      dots: false,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      prevArrow: `
+      <button width="40px" height="40px" type="button" class="slick-prev">
+        <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M1.09275e-05 4.99988L5.0002 -7.72567e-08L5.88391 0.883839L1.7675 5L5.88329 9.11629L4.99945 10L1.09275e-05 4.99988Z" fill="white"/>
+        </svg>
+      </button>`,
+      nextArrow: `
+      <button width="40px" height="40px" type="button" class="slick-next"> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M6.00011 4.99988L0.999923 -7.72567e-08L0.11621 0.883839L4.23262 5L0.116836 9.11629L1.00067 10L6.00011 4.99988Z" fill="white"/>
+        </svg>
+      </button>`,
+    });
+  })
+</script>
+
+{% schema %}
+{
+  "name": "Tarjeta Header",
+  "tag": "section",
+  "class": "Tarjeta Header",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label"
+    },
+  ],
+  "max_blocks": 10,
+  "blocks": [
+     {
+       "name": "Slide",
+       "type": "slide",
+       "settings": [
+         {
+            "type": "richtext", 
+            "id": "text",
+            "label": "Texto"
+          },
+          {
+            "type": "text", 
+            "id": "url",
+            "label": "url"
+          },
+          {
+            "type": "richtext", 
+            "id": "text_distaque",
+            "label": "texto destacado (ex: cupom10)"
+          },
+
+       ]
+     }
+  ],
+  "presets": [
+    {
+      "name": "Tarjeta Header",
+      "settings": {
+      }
+    }
+  ],
+  "enabled_on": {
+    "templates": ["*"],
+    "groups": ["footer"]
+  }
+}
+{% endschema %}
