@@ -1,0 +1,117 @@
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement-bar-0": {
+          "type": "announcement",
+          "settings": {
+            "text": "Receba 5% de desconto no pix",
+            "link": ""
+          }
+        },
+        "announcement_zhRBth": {
+          "type": "announcement",
+          "settings": {
+            "text": "10% OFF na primeira compra",
+            "link": ""
+          }
+        },
+        "announcement_tbitBk": {
+          "type": "announcement",
+          "settings": {
+            "text": "Frete grátis acima de R$400,00",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement-bar-0",
+        "announcement_zhRBth",
+        "announcement_tbitBk"
+      ],
+      "settings": {
+        "color_scheme": "scheme-a0de66a1-a728-45fa-aec6-63afdcb7952a",
+        "show_line_separator": true,
+        "show_social": false,
+        "auto_rotate": true,
+        "change_slides_speed": 3,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "header": {
+      "type": "header",
+      "disabled": true,
+      "settings": {
+        "logo_position": "middle-left",
+        "menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": true,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_customer_avatar": true,
+        "mobile_logo_position": "center",
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "header_custom_pad_YCjdt9": {
+      "type": "Header-Custom_PAD",
+      "blocks": {
+        "logo_3FCbia": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/Group_1000005977_3.png",
+            "logo_white": "shopify:\/\/shop_images\/Group_1000005977_2_c31ddcfb-93f7-4fab-8143-96fedd8d865b.png",
+            "logo_width": 100
+          }
+        },
+        "menu_ymdGx9": {
+          "type": "menu",
+          "settings": {
+            "menu": "main-menu",
+            "gap": 8
+          }
+        },
+        "icons_jgfeN7": {
+          "type": "icons",
+          "settings": {
+            "gap": 8,
+            "height": 18
+          }
+        }
+      },
+      "block_order": [
+        "logo_3FCbia",
+        "menu_ymdGx9",
+        "icons_jgfeN7"
+      ],
+      "settings": {
+        "max-width": 1440,
+        "height": 60,
+        "quantity_frete_free": "500",
+        "background": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_left": 64,
+        "padding_right": 64,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "padding_left_mobile": 16,
+        "padding_right_mobile": 16
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header",
+    "header_custom_pad_YCjdt9"
+  ]
+}
