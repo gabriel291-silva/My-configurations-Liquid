@@ -1,11 +1,6 @@
 {% style %}
   .header-section-container-{{ section.id }}{
-      max-width:{{ section.settings.max-width }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-right:{{ section.settings.padding_right }}px;
-      padding-left:{{ section.settings.padding_left }}px;
-      background:{{ section.settings.background }};
+
       border-bottom: 1px solid #D4D4D4;
 
   }
@@ -14,9 +9,15 @@
       width: 100%;
       align-items: center;
       justify-content: space-between;
-      max-width:{{ section.settings.max-width }}px;
       height:{{ section.settings.height }}px;
       margin:0 auto;
+      
+      max-width:{{ section.settings.max-width }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-right:{{ section.settings.padding_right }}px;
+      padding-left:{{ section.settings.padding_left }}px;
+      background:{{ section.settings.background }};
   }
   .header-menu{
       display: flex;
@@ -227,24 +228,115 @@
     padding: 32px 64px;
     margin-top: 15.5px;
     transition:1s;
-
+    border: 1px solid var(--cinza-2, #D2D3D5);
   }
   .close-sublink-swrapper{
     top:-2000px;
     transition:1s;
   }
-  .color-transparant{
-    color:transparent !important;
+
+  {% if template.name == "index" or
+       page.title == "Sobre" or
+       page.title == "Lojas" or
+        template.name == "collection" and collection.metafields.custom.banner_desktop
+        %}
+          .color-transparant{
+            color:transparent !important;
+          }
+        .header-section-container.header-transparent{
+          position: absolute;
+          width: 100%;
+          border:none;
+        }
+        .header-transparent *{
+          color: #FFFFFF;
+        }
+        .header-transparent .header_menu-item span{
+          color: #FFFFFF;
+
+        }
+        .header-transparent .header_menu-item a{
+          color: #FFFFFF;
+
+          }
+         .header-transparent .black{
+            display:none;
+          }
+        .header-transparent .white{
+          display:flex;
+        }
+      {% endif %}
+
+
+
+  .form-search.form-search-close{
+    opacity:0;
+    transition:1s;
+    top: -100px;
   }
+  .form-search{
+    display: flex;
+    position: absolute;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 60px;
+    background: #1E1E1EA3;
+    margin-top: 18px;
+    opacity:1;
+  }
+  .form-search form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+  }
+  .form-search input{
+    padding: 8px;
+    width: 100%;
+  }
+  .form-search button{
+    background: #000;
+    color: #fff;
+    max-width: 416px;
+    border-radius: 4px;
+    font-family: Helvetica Neue;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19.54px;
+    letter-spacing: .12em;
+    padding: 8px;
+  }
+
   @media screen and ( max-width: 750px ){
-    .header-section-container-{{ section.id }}{
-        padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    .sublinks-container{
+      border:none;
+    }
+    .form-search{
+      margin-top: 0px;
+    }
+  .header-pad{
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
     padding-top: {{ section.settings.padding_top_mobile }}px;
     padding-right:{{ section.settings.padding_right_mobile }}px;
     padding-left:{{ section.settings.padding_left_mobile }}px;
   }
     .mobile-menu{
-     display:flex;
+      display: flex;
+      width: 100%;
+    }
+    .header-logo{
+      width: 100%;
+    align-items: center;
+    justify-content: center;
+    }
+    .header-icons{
+      gap: 8px;
+    width: 100%;
+    align-items: center;
+    justify-content: end;
     }
     .header-menu{
      display:none;
@@ -260,7 +352,7 @@
         width: 100%;
         top: 0;
         background: #fff;
-        flex-direction: column;    
+        flex-direction: column;
         transition:0.7s;
         top: 15%;
         box-shadow: 4px 0px 0px 8px #43434A14;
@@ -367,21 +459,29 @@
 {% endstyle %}
 
 {% comment %} header desktop {% endcomment %}
-<div  class="header-section-container header-section-container-{{ section.id }}" quantity_frete_free="{{ section.settings.quantity_frete_free }}">
+<div
+  class="
+          {% if template.name == "index" or
+       page.title == "Sobre" or
+       page.title == "Lojas" or
+        template.name == "collection" and collection.metafields.custom.banner_desktop
+        %}
+        header-transparent
+      {% endif %}
+      {% if
+       page.title == "B2B"
+        %}
+        header-transparent-black-color
+      {% endif %}
+
+    header-section-container header-section-container-{{ section.id }}
+  "
+  quantity_frete_free="{{ section.settings.quantity_frete_free }}"
+>
   <header class="header-pad header-desktop-pad">
     <div class="mobile-menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g clip-path="url(#clip0_879_2203)">
-        <path d="M21.3333 6.58382H2.66667C2.48986 6.58382 2.32029 6.51358 2.19526 6.38856C2.07024 6.26354 2 6.09397 2 5.91715C2 5.74034 2.07024 5.57077 2.19526 5.44575C2.32029 5.32073 2.48986 5.25049 2.66667 5.25049H21.3333C21.5101 5.25049 21.6797 5.32073 21.8047 5.44575C21.9298 5.57077 22 5.74034 22 5.91715C22 6.09397 21.9298 6.26354 21.8047 6.38856C21.6797 6.51358 21.5101 6.58382 21.3333 6.58382Z" fill="#000001"/>
-        <path d="M21.3333 12.4173H2.66667C2.48986 12.4173 2.32029 12.3471 2.19526 12.2221C2.07024 12.097 2 11.9275 2 11.7507C2 11.5738 2.07024 11.4043 2.19526 11.2792C2.32029 11.1542 2.48986 11.084 2.66667 11.084H21.3333C21.5101 11.084 21.6797 11.1542 21.8047 11.2792C21.9298 11.4043 22 11.5738 22 11.7507C22 11.9275 21.9298 12.097 21.8047 12.2221C21.6797 12.3471 21.5101 12.4173 21.3333 12.4173Z" fill="#000001"/>
-        <path d="M21.3333 18.2503H2.66667C2.48986 18.2503 2.32029 18.1801 2.19526 18.0551C2.07024 17.93 2 17.7605 2 17.5837C2 17.4068 2.07024 17.2373 2.19526 17.1123C2.32029 16.9872 2.48986 16.917 2.66667 16.917H21.3333C21.5101 16.917 21.6797 16.9872 21.8047 17.1123C21.9298 17.2373 22 17.4068 22 17.5837C22 17.7605 21.9298 17.93 21.8047 18.0551C21.6797 18.1801 21.5101 18.2503 21.3333 18.2503Z" fill="#000001"/>
-        </g>
-        <defs>
-        <clipPath id="clip0_879_2203">
-        <rect width="24" height="24" fill="white"/>
-        </clipPath>
-        </defs>
-      </svg>
+      <span class="black">{{ 'menu-mobile.svg' | inline_asset_content }}</span>
+      <span class="white">{{ 'menu-mobile-white.svg' | inline_asset_content }}</span>
     </div>
     {%- for block in section.blocks -%}
       {%- case block.type -%}
@@ -397,12 +497,12 @@
                 {% if link.levels > 0 %}
                   <span class="sublinks-button ">{{- link.title | escape -}}</span>
                   <div class="sublinks-container close-sublink-swrapper">
-                      {% for link in link.links %}
-                        <span class="sublinks">{{- link.title | escape -}}</span>
-                      {% endfor %}
+                    {% for link in link.links %}
+                      <span class="sublinks">{{- link.title | escape -}}</span>
+                    {% endfor %}
                   </div>
                 {% else %}
-                  <a  href="{{ link.url }}">{{- link.title | escape -}}</a>
+                  <a href="{{ link.url }}">{{- link.title | escape -}}</a>
                 {% endif %}
               </div>
             {% endfor %}
@@ -410,15 +510,27 @@
         {%- when 'icons' -%}
           <div class="header-icons" style="gap:{{ block.settings.gap }}px">
             <div class="icon-search icon-header-pad">
-              {{- 'icon-search.svg' | inline_asset_content -}}
+              <span class="black">{{- 'icon-search.svg' | inline_asset_content -}}</span>
+              <span class="white">{{- 'icon-search-white.svg' | inline_asset_content -}}</span>
             </div>
+            <div class="form-search form-search-close">
+              <form action="/search" method="get" role="search">
+                <input type="search" name="q" placeholder="Pesquisar produtos..." aria-label="Pesquisar produtos">
+                <button type="submit">Buscar</button>
+              </form>
+            </div>
+
             <div class="icon-account icon-header-pad">
-              {{ 'icon-account.svg' | inline_asset_content }}
+              <span class="black">{{ 'icon-account.svg' | inline_asset_content }}</span>
+              <span class="white">{{ 'icon-account-white.svg' | inline_asset_content }}</span>
+              
             </div>
             <div class="icon-cart icon-header-pad">
-              {{ 'icon-cart.svg' | inline_asset_content }}
+              <span class="black">{{ 'icon-cart.svg' | inline_asset_content }}</span>
+              <span class="white">{{ 'icon-cart-white.svg' | inline_asset_content }}</span>
             </div>
           </div>
+          
       {%- endcase -%}
     {%- endfor -%}
   </header>
@@ -446,81 +558,78 @@
 </div>
 
 <div id="menu-mobile-swrapper" class="menu-mobile-swrapper menu-mobile-swrapper-close">
-    <div class="header-menu-mobile" style="gap:{{ block.settings.gap }}px">
-        {%- for block in section.blocks -%}
-            {%- case block.type -%}
-            {%- when 'menu' -%}
-                {% for link in block.settings.menu.links %}
-                  <div class="header_menu-item" class="{% if link.levels > 0 %} on-subcategory-mobile {% endif %}">
-                    {% if link.levels > 0 %}
-                      <span class="sublinks-button">
-                        {{- link.title | escape -}}                             
-                        {{- 'arrow-menu-mobile-one.svg' | inline_asset_content -}}
-                      </span>
-                      <div class="sublinks-container close-sublink-swrapper">
-                          <span class="close-sublinks-mobile">
-                            {{- 'arrow-menu-mobile-two.svg' | inline_asset_content -}}
-                            {{- link.title | escape -}}
-                          </span>
-                          {% for sublink in link.links %}
-                            <span class="sublinks">{{- sublink.title | escape -}}</span>
-                          {% endfor %}
-                      </div>
-                    {% else %}
-                      <a  href="{{ link.url }}">{{- link.title | escape -}}</a>
-                    {% endif %}
-                  </div>
-                {% endfor %}
-            {%- endcase -%}
-        {%- endfor -%}
+  <div class="header-menu-mobile" style="gap:{{ block.settings.gap }}px">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'menu' -%}
+          {% for link in block.settings.menu.links %}
+            <div class="header_menu-item" class="{% if link.levels > 0 %} on-subcategory-mobile {% endif %}">
+              {% if link.levels > 0 %}
+                <span class="sublinks-button">
+                  {{- link.title | escape -}}
+                  {{- 'arrow-menu-mobile-one.svg' | inline_asset_content -}}
+                </span>
+                <div class="sublinks-container close-sublink-swrapper">
+                  <span class="close-sublinks-mobile">
+                    {{- 'arrow-menu-mobile-two.svg' | inline_asset_content -}}
+                    {{- link.title | escape -}}
+                  </span>
+                  {% for sublink in link.links %}
+                    <span class="sublinks">{{- sublink.title | escape -}}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                <a href="{{ link.url }}">{{- link.title | escape -}}</a>
+              {% endif %}
+            </div>
+          {% endfor %}
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+  <div class="menu-mobile-footer">
+    <a href="">
+      <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_5_1058)">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M6 4.5C6 3.70435 6.31607 2.94129 6.87868 2.37868C7.44129 1.81607 8.20435 1.5 9 1.5C9.79565 1.5 10.5587 1.81607 11.1213 2.37868C11.6839 2.94129 12 3.70435 12 4.5C12 5.29565 11.6839 6.05871 11.1213 6.62132C10.5587 7.18393 9.79565 7.5 9 7.5C8.20435 7.5 7.44129 7.18393 6.87868 6.62132C6.31607 6.05871 6 5.29565 6 4.5ZM9 0.5C7.93913 0.5 6.92172 0.921427 6.17157 1.67157C5.42143 2.42172 5 3.43913 5 4.5C5 5.56087 5.42143 6.57828 6.17157 7.32843C6.92172 8.07857 7.93913 8.5 9 8.5C10.0609 8.5 11.0783 8.07857 11.8284 7.32843C12.5786 6.57828 13 5.56087 13 4.5C13 3.43913 12.5786 2.42172 11.8284 1.67157C11.0783 0.921427 10.0609 0.5 9 0.5ZM14.58 12.65C15.7 13.47 16.41 14.89 16.49 17.5H1.51C1.59 14.9 2.3 13.47 3.41 12.65C4.66 11.75 6.5 11.5 9 11.5C11.5 11.5 13.35 11.76 14.58 12.65ZM9 10.5C6.5 10.5 4.35 10.74 2.83 11.85C1.27 12.98 0.5 14.93 0.5 18V18.5H17.5V18C17.5 14.93 16.73 12.98 15.17 11.85C13.65 10.75 11.5 10.5 9 10.5Z" fill="black"/>
+        </g>
+        <defs>
+        <clipPath id="clip0_5_1058">
+        <rect width="18" height="19" fill="white"/>
+        </clipPath>
+        </defs>
+      </svg>
+      login
+    </a>
+    <div class="footer-menu-mobile-midias">
+      <a href="{{ settings.social_facebook_linkk }}">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.6673 11.25H13.7507L14.584 7.91669H11.6673V6.25002C11.6673 5.39169 11.6673 4.58335 13.334 4.58335H14.584V1.78335C14.3123 1.74752 13.2865 1.66669 12.2032 1.66669C9.94065 1.66669 8.33398 3.04752 8.33398 5.58335V7.91669H5.83398V11.25H8.33398V18.3334H11.6673V11.25Z" fill="#231F20"/>
+        </svg>
+      </a>
+      <a href="{{ settings.social_instagram_link }}">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.8565 1.66753C11.4646 1.6652 12.0727 1.67131 12.6807 1.68586L12.8423 1.6917C13.029 1.69836 13.2132 1.7067 13.4357 1.7167C14.3223 1.75836 14.9273 1.89836 15.4582 2.1042C16.0082 2.31586 16.4715 2.60253 16.9348 3.06586C17.3585 3.4822 17.6864 3.98582 17.8957 4.5417C18.1015 5.07253 18.2415 5.67836 18.2832 6.56503C18.2932 6.7867 18.3015 6.9717 18.3082 7.15836L18.3132 7.32003C18.328 7.92769 18.3344 8.53553 18.3323 9.14336L18.3332 9.76503V10.8567C18.3352 11.4648 18.3288 12.0729 18.314 12.6809L18.309 12.8425C18.3023 13.0292 18.294 13.2134 18.284 13.4359C18.2423 14.3225 18.1007 14.9275 17.8957 15.4584C17.687 16.0148 17.3591 16.5189 16.9348 16.935C16.5181 17.3586 16.0143 17.6865 15.4582 17.8959C14.9273 18.1017 14.3223 18.2417 13.4357 18.2834C13.2132 18.2934 13.029 18.3017 12.8423 18.3084L12.6807 18.3134C12.0727 18.3282 11.4646 18.3346 10.8565 18.3325L10.2348 18.3334H9.144C8.53588 18.3354 7.92777 18.329 7.31983 18.3142L7.15816 18.3092C6.96034 18.302 6.76256 18.2937 6.56483 18.2842C5.67816 18.2425 5.07316 18.1009 4.5415 17.8959C3.9854 17.687 3.48169 17.359 3.06566 16.935C2.64153 16.5186 2.31335 16.0147 2.104 15.4584C1.89816 14.9275 1.75816 14.3225 1.7165 13.4359C1.70722 13.2381 1.69888 13.0403 1.6915 12.8425L1.68733 12.6809C1.67197 12.0729 1.66502 11.4648 1.6665 10.8567V9.14336C1.66417 8.53553 1.67028 7.92769 1.68483 7.32003L1.69066 7.15836C1.69733 6.9717 1.70566 6.7867 1.71566 6.56503C1.75733 5.67753 1.89733 5.07336 2.10316 4.5417C2.31264 3.98555 2.64147 3.48207 3.0665 3.0667C3.48224 2.64232 3.98563 2.31384 4.5415 2.1042C5.07316 1.89836 5.67733 1.75836 6.56483 1.7167L7.15816 1.6917L7.31983 1.68753C7.92748 1.67217 8.53532 1.66523 9.14316 1.6667L10.8565 1.66753ZM9.99983 5.8342C9.44775 5.82639 8.89963 5.92838 8.38731 6.13425C7.87499 6.34012 7.4087 6.64576 7.01553 7.03341C6.62237 7.42106 6.31016 7.88298 6.09707 8.39233C5.88398 8.90169 5.77424 9.44831 5.77424 10.0004C5.77424 10.5526 5.88398 11.0992 6.09707 11.6086C6.31016 12.1179 6.62237 12.5798 7.01553 12.9675C7.4087 13.3551 7.87499 13.6608 8.38731 13.8666C8.89963 14.0725 9.44775 14.1745 9.99983 14.1667C11.1049 14.1667 12.1647 13.7277 12.9461 12.9463C13.7275 12.1649 14.1665 11.1051 14.1665 10C14.1665 8.89496 13.7275 7.83515 12.9461 7.05375C12.1647 6.27235 11.1049 5.8342 9.99983 5.8342ZM9.99983 7.50086C10.3319 7.49474 10.6619 7.55486 10.9705 7.6777C11.2791 7.80054 11.5601 7.98365 11.7971 8.21632C12.0342 8.44899 12.2225 8.72656 12.351 9.03281C12.4796 9.33907 12.5458 9.66788 12.5459 10C12.5459 10.3322 12.4798 10.661 12.3514 10.9673C12.2229 11.2736 12.0347 11.5512 11.7977 11.784C11.5608 12.0167 11.2798 12.1999 10.9713 12.3229C10.6627 12.4458 10.3328 12.506 10.0007 12.5C9.33762 12.5 8.70174 12.2366 8.2329 11.7678C7.76406 11.299 7.50066 10.6631 7.50066 10C7.50066 9.33699 7.76406 8.7011 8.2329 8.23226C8.70174 7.76342 9.33762 7.50003 10.0007 7.50003L9.99983 7.50086ZM14.3748 4.5842C14.106 4.59496 13.8517 4.70932 13.6653 4.90334C13.4789 5.09736 13.3748 5.35597 13.3748 5.62503C13.3748 5.89408 13.4789 6.1527 13.6653 6.34672C13.8517 6.54074 14.106 6.6551 14.3748 6.66586C14.6511 6.66586 14.9161 6.55612 15.1114 6.36077C15.3068 6.16542 15.4165 5.90046 15.4165 5.6242C15.4165 5.34793 15.3068 5.08298 15.1114 4.88763C14.9161 4.69228 14.6511 4.58253 14.3748 4.58253V4.5842Z" fill="#231F20"/>
+        </svg>
+      </a>
+      <a href="{{ settings.social_tiktok_link }}">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0_5_1069)">
+          <path d="M5.1675 17.5H1.53938V5.81625H5.1675V17.5ZM3.35125 4.2225C2.19125 4.2225 1.25 3.26125 1.25 2.10125C1.25 1.54396 1.47138 1.0095 1.86544 0.615442C2.2595 0.221381 2.79396 0 3.35125 0C3.90854 0 4.443 0.221381 4.83706 0.615442C5.23112 1.0095 5.4525 1.54396 5.4525 2.10125C5.4525 3.26125 4.51125 4.2225 3.35125 4.2225ZM18.7462 17.5H15.1262V11.8125C15.1262 10.4569 15.0987 8.71875 13.24 8.71875C11.3537 8.71875 11.0644 10.1912 11.0644 11.715V17.5H7.44V5.81625H10.9194V7.41H10.97C11.4544 6.49188 12.6375 5.52312 14.4025 5.52312C18.0744 5.52312 18.7494 7.94125 18.7494 11.0819V17.5H18.7462Z" fill="#231F20"/>
+          </g>
+          <defs>
+          <clipPath id="clip0_5_1069">
+          <rect width="20" height="20" fill="white"/>
+          </clipPath>
+          </defs>
+        </svg>
+      </a>
+      <a href="{{ settings.social_tiktok_link }}">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14.6939 3.82C13.9964 3.03962 13.612 2.03743 13.6122 1H10.4592V13.4C10.4349 14.071 10.1458 14.7066 9.65282 15.1729C9.15986 15.6393 8.50148 15.8999 7.81633 15.9C6.36735 15.9 5.16327 14.74 5.16327 13.3C5.16327 11.58 6.85714 10.29 8.60204 10.82V7.66C5.08163 7.2 2 9.88 2 13.3C2 16.63 4.81633 19 7.80612 19C11.0102 19 13.6122 16.45 13.6122 13.3V7.01C14.8908 7.90985 16.4259 8.39265 18 8.39V5.3C18 5.3 16.0816 5.39 14.6939 3.82Z" fill="#231F20"/>
+        </svg>
+      </a>
     </div>
-    <div class="menu-mobile-footer">
-        <a href="">
-            <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_5_1058)">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M6 4.5C6 3.70435 6.31607 2.94129 6.87868 2.37868C7.44129 1.81607 8.20435 1.5 9 1.5C9.79565 1.5 10.5587 1.81607 11.1213 2.37868C11.6839 2.94129 12 3.70435 12 4.5C12 5.29565 11.6839 6.05871 11.1213 6.62132C10.5587 7.18393 9.79565 7.5 9 7.5C8.20435 7.5 7.44129 7.18393 6.87868 6.62132C6.31607 6.05871 6 5.29565 6 4.5ZM9 0.5C7.93913 0.5 6.92172 0.921427 6.17157 1.67157C5.42143 2.42172 5 3.43913 5 4.5C5 5.56087 5.42143 6.57828 6.17157 7.32843C6.92172 8.07857 7.93913 8.5 9 8.5C10.0609 8.5 11.0783 8.07857 11.8284 7.32843C12.5786 6.57828 13 5.56087 13 4.5C13 3.43913 12.5786 2.42172 11.8284 1.67157C11.0783 0.921427 10.0609 0.5 9 0.5ZM14.58 12.65C15.7 13.47 16.41 14.89 16.49 17.5H1.51C1.59 14.9 2.3 13.47 3.41 12.65C4.66 11.75 6.5 11.5 9 11.5C11.5 11.5 13.35 11.76 14.58 12.65ZM9 10.5C6.5 10.5 4.35 10.74 2.83 11.85C1.27 12.98 0.5 14.93 0.5 18V18.5H17.5V18C17.5 14.93 16.73 12.98 15.17 11.85C13.65 10.75 11.5 10.5 9 10.5Z" fill="black"/>
-                </g>
-                <defs>
-                <clipPath id="clip0_5_1058">
-                <rect width="18" height="19" fill="white"/>
-                </clipPath>
-                </defs>
-                </svg>
-                login
-                
-        </a>
-        <div class="footer-menu-mobile-midias">
-            <a href="{{ settings.social_facebook_linkk }}">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11.6673 11.25H13.7507L14.584 7.91669H11.6673V6.25002C11.6673 5.39169 11.6673 4.58335 13.334 4.58335H14.584V1.78335C14.3123 1.74752 13.2865 1.66669 12.2032 1.66669C9.94065 1.66669 8.33398 3.04752 8.33398 5.58335V7.91669H5.83398V11.25H8.33398V18.3334H11.6673V11.25Z" fill="#231F20"/>
-                    </svg>
-            </a>
-            <a href="{{ settings.social_instagram_link }}">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.8565 1.66753C11.4646 1.6652 12.0727 1.67131 12.6807 1.68586L12.8423 1.6917C13.029 1.69836 13.2132 1.7067 13.4357 1.7167C14.3223 1.75836 14.9273 1.89836 15.4582 2.1042C16.0082 2.31586 16.4715 2.60253 16.9348 3.06586C17.3585 3.4822 17.6864 3.98582 17.8957 4.5417C18.1015 5.07253 18.2415 5.67836 18.2832 6.56503C18.2932 6.7867 18.3015 6.9717 18.3082 7.15836L18.3132 7.32003C18.328 7.92769 18.3344 8.53553 18.3323 9.14336L18.3332 9.76503V10.8567C18.3352 11.4648 18.3288 12.0729 18.314 12.6809L18.309 12.8425C18.3023 13.0292 18.294 13.2134 18.284 13.4359C18.2423 14.3225 18.1007 14.9275 17.8957 15.4584C17.687 16.0148 17.3591 16.5189 16.9348 16.935C16.5181 17.3586 16.0143 17.6865 15.4582 17.8959C14.9273 18.1017 14.3223 18.2417 13.4357 18.2834C13.2132 18.2934 13.029 18.3017 12.8423 18.3084L12.6807 18.3134C12.0727 18.3282 11.4646 18.3346 10.8565 18.3325L10.2348 18.3334H9.144C8.53588 18.3354 7.92777 18.329 7.31983 18.3142L7.15816 18.3092C6.96034 18.302 6.76256 18.2937 6.56483 18.2842C5.67816 18.2425 5.07316 18.1009 4.5415 17.8959C3.9854 17.687 3.48169 17.359 3.06566 16.935C2.64153 16.5186 2.31335 16.0147 2.104 15.4584C1.89816 14.9275 1.75816 14.3225 1.7165 13.4359C1.70722 13.2381 1.69888 13.0403 1.6915 12.8425L1.68733 12.6809C1.67197 12.0729 1.66502 11.4648 1.6665 10.8567V9.14336C1.66417 8.53553 1.67028 7.92769 1.68483 7.32003L1.69066 7.15836C1.69733 6.9717 1.70566 6.7867 1.71566 6.56503C1.75733 5.67753 1.89733 5.07336 2.10316 4.5417C2.31264 3.98555 2.64147 3.48207 3.0665 3.0667C3.48224 2.64232 3.98563 2.31384 4.5415 2.1042C5.07316 1.89836 5.67733 1.75836 6.56483 1.7167L7.15816 1.6917L7.31983 1.68753C7.92748 1.67217 8.53532 1.66523 9.14316 1.6667L10.8565 1.66753ZM9.99983 5.8342C9.44775 5.82639 8.89963 5.92838 8.38731 6.13425C7.87499 6.34012 7.4087 6.64576 7.01553 7.03341C6.62237 7.42106 6.31016 7.88298 6.09707 8.39233C5.88398 8.90169 5.77424 9.44831 5.77424 10.0004C5.77424 10.5526 5.88398 11.0992 6.09707 11.6086C6.31016 12.1179 6.62237 12.5798 7.01553 12.9675C7.4087 13.3551 7.87499 13.6608 8.38731 13.8666C8.89963 14.0725 9.44775 14.1745 9.99983 14.1667C11.1049 14.1667 12.1647 13.7277 12.9461 12.9463C13.7275 12.1649 14.1665 11.1051 14.1665 10C14.1665 8.89496 13.7275 7.83515 12.9461 7.05375C12.1647 6.27235 11.1049 5.8342 9.99983 5.8342ZM9.99983 7.50086C10.3319 7.49474 10.6619 7.55486 10.9705 7.6777C11.2791 7.80054 11.5601 7.98365 11.7971 8.21632C12.0342 8.44899 12.2225 8.72656 12.351 9.03281C12.4796 9.33907 12.5458 9.66788 12.5459 10C12.5459 10.3322 12.4798 10.661 12.3514 10.9673C12.2229 11.2736 12.0347 11.5512 11.7977 11.784C11.5608 12.0167 11.2798 12.1999 10.9713 12.3229C10.6627 12.4458 10.3328 12.506 10.0007 12.5C9.33762 12.5 8.70174 12.2366 8.2329 11.7678C7.76406 11.299 7.50066 10.6631 7.50066 10C7.50066 9.33699 7.76406 8.7011 8.2329 8.23226C8.70174 7.76342 9.33762 7.50003 10.0007 7.50003L9.99983 7.50086ZM14.3748 4.5842C14.106 4.59496 13.8517 4.70932 13.6653 4.90334C13.4789 5.09736 13.3748 5.35597 13.3748 5.62503C13.3748 5.89408 13.4789 6.1527 13.6653 6.34672C13.8517 6.54074 14.106 6.6551 14.3748 6.66586C14.6511 6.66586 14.9161 6.55612 15.1114 6.36077C15.3068 6.16542 15.4165 5.90046 15.4165 5.6242C15.4165 5.34793 15.3068 5.08298 15.1114 4.88763C14.9161 4.69228 14.6511 4.58253 14.3748 4.58253V4.5842Z" fill="#231F20"/>
-                    </svg>                    
-            </a>
-            <a href="{{ settings.social_tiktok_link }}">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_5_1069)">
-                    <path d="M5.1675 17.5H1.53938V5.81625H5.1675V17.5ZM3.35125 4.2225C2.19125 4.2225 1.25 3.26125 1.25 2.10125C1.25 1.54396 1.47138 1.0095 1.86544 0.615442C2.2595 0.221381 2.79396 0 3.35125 0C3.90854 0 4.443 0.221381 4.83706 0.615442C5.23112 1.0095 5.4525 1.54396 5.4525 2.10125C5.4525 3.26125 4.51125 4.2225 3.35125 4.2225ZM18.7462 17.5H15.1262V11.8125C15.1262 10.4569 15.0987 8.71875 13.24 8.71875C11.3537 8.71875 11.0644 10.1912 11.0644 11.715V17.5H7.44V5.81625H10.9194V7.41H10.97C11.4544 6.49188 12.6375 5.52312 14.4025 5.52312C18.0744 5.52312 18.7494 7.94125 18.7494 11.0819V17.5H18.7462Z" fill="#231F20"/>
-                    </g>
-                    <defs>
-                    <clipPath id="clip0_5_1069">
-                    <rect width="20" height="20" fill="white"/>
-                    </clipPath>
-                    </defs>
-                    </svg>
-                    
-            </a>
-            <a href="{{ settings.social_tiktok_link }}">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14.6939 3.82C13.9964 3.03962 13.612 2.03743 13.6122 1H10.4592V13.4C10.4349 14.071 10.1458 14.7066 9.65282 15.1729C9.15986 15.6393 8.50148 15.8999 7.81633 15.9C6.36735 15.9 5.16327 14.74 5.16327 13.3C5.16327 11.58 6.85714 10.29 8.60204 10.82V7.66C5.08163 7.2 2 9.88 2 13.3C2 16.63 4.81633 19 7.80612 19C11.0102 19 13.6122 16.45 13.6122 13.3V7.01C14.8908 7.90985 16.4259 8.39265 18 8.39V5.3C18 5.3 16.0816 5.39 14.6939 3.82Z" fill="#231F20"/>
-                    </svg>                    
-            </a>
-        </div>
-    </div>
-
+  </div>
 </div>
 
 {% schema %}

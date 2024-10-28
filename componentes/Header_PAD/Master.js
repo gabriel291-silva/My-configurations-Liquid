@@ -257,10 +257,11 @@ function openMenuMobile() {
   const containerLinksMobile = document.getElementById("menu-mobile-swrapper");
   containerLinksMobile.classList.toggle("menu-mobile-swrapper-close");
 
-  document
-    .querySelector(".header-section-container")
-    .classList.toggle("fixed-mobile");
+  document.querySelector(".header-section-container").classList.toggle("fixed-mobile");
+  document.querySelector(".header-section-container").classList.toggle("header-transparent");
+
   document.querySelector(".utility-bar").classList.toggle("fixed-mobile");
+
 
   if (containerLinksMobile.classList == "menu-mobile-swrapper") {
     document.querySelectorAll(".sublinks-container").forEach((element) => {
@@ -279,6 +280,10 @@ function CloseSublinksOver(element) {
   const buttonLinks = element.previousElementSibling;
   buttonLinks.classList.remove("color-transparant");
 }
+function openCloseSearch(){
+  const searchbar = document.querySelector(".form-search");
+  searchbar.classList.toggle("form-search-close")
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   const openBtnHeaderMinicart = document.querySelector(
@@ -292,54 +297,54 @@ document.addEventListener("DOMContentLoaded", function () {
   const buttonOpenMenuMobile = document.querySelector(".mobile-menu");
   const sublinks = document.querySelectorAll(".sublinks-button");
   const sublinkscontainer = document.querySelectorAll(".sublinks-container");
-  openBtnHeaderMinicart.addEventListener("click", () => {
-    openMiniCart();
-  });
+  const buttonSearh = document.querySelector(".icon-header-pad")
+  const FormSearh = document.querySelector(".form-search")
+  const sublinksContainer = document.querySelectorAll(".close-sublinks-mobile")
 
-  containerSwrapperMiniCart &&
-    containerSwrapperMiniCart.addEventListener("click", (event) => {
+    openBtnHeaderMinicart.addEventListener("click", () => {
+    openMiniCart();
+    });
+    containerSwrapperMiniCart && containerSwrapperMiniCart.addEventListener("click", (event) => {
       if (event.target === event.currentTarget) {
         closeMiniCart();
       }
     });
-
-  buttonsAddToCartCustom &&
-    buttonsAddToCartCustom.forEach((element) => {
+    buttonsAddToCartCustom && buttonsAddToCartCustom.forEach((element) => {
       element.addEventListener("click", () => {
         console.log("teste");
         addToCartManyButtons(element);
       });
     });
-
-  containerCloseMinicart.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      closeMiniCart();
+    containerCloseMinicart.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        closeMiniCart();
+      });
     });
-  });
-
-  buttonOpenMenuMobile &&
-    buttonOpenMenuMobile.addEventListener("click", () => {
+    buttonOpenMenuMobile && buttonOpenMenuMobile.addEventListener("click", () => {
       openMenuMobile();
     });
-  sublinks &&
-    sublinks.forEach((element) => {
+    sublinks && sublinks.forEach((element) => {
       element.addEventListener("click", () => {
         toggleSublinksButtons(element);
       });
     });
-  document.querySelectorAll(".close-sublinks-mobile") &&
-    document.querySelectorAll(".close-sublinks-mobile").forEach((e) => {
+    sublinksContainer && sublinksContainer.forEach((e) => {
       e.addEventListener("click", () => {
         document.querySelectorAll(".sublinks-container").forEach((element) => {
           element.classList.add("close-sublink-swrapper");
         });
       });
     });
-  sublinkscontainer &&
-    sublinkscontainer.forEach((element) => {
+    sublinkscontainer && sublinkscontainer.forEach((element) => {
       element.addEventListener("mouseleave", () => {
         CloseSublinksOver(element);
       });
     });
+    buttonSearh && buttonSearh.addEventListener("click",()=>{
+      openCloseSearch()
+    })
+    FormSearh && FormSearh.addEventListener("mouseleave",()=>{
+      openCloseSearch()
+    })
   getCart();
 });
